@@ -72,3 +72,14 @@ public:
     void withdraw();
     void add_interest();
 };
+
+
+class Bank {
+private:
+    Account account[];
+public:
+    void add_accounts();
+    void make_deposit();
+    void make_withdrawal();
+    Account get_account();
+};
