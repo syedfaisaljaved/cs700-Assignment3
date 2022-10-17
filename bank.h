@@ -2,7 +2,19 @@
 // Created by Faisal Javed on 16/10/22.
 //
 
-#ifndef CS700_ASSIGNMENT3_BANK_H
-#define CS700_ASSIGNMENT3_BANK_H
+#pragma once
 
-#endif //CS700_ASSIGNMENT3_BANK_H
+#include "account.h"
+
+class Bank {
+private:
+    Account account[];
+public:
+    void add_accounts();
+
+    void make_deposit();
+
+    void make_withdrawal();
+
+    Account get_account();
+};
