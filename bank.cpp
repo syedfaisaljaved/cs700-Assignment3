@@ -25,4 +25,10 @@ public:
 
 };
 
-class
+class Checking_Account : public Account {
+public:
+    void deposit();
+    void withdraw();
+    void add_interest();
+};
+
