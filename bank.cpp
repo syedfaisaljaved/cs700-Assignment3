@@ -1,5 +1,6 @@
 #include <iostream>
 #include "bank.h"
+#include "Date.h"
 
 class Customer {
 private:
@@ -41,12 +42,21 @@ private:
     const int OVERDRAFT_PENALTY = 0;
 };
 
+class Transaction {
+private:
+    std::string transaction_type;
+    float amount_balance;
+    Date date;
+public:
+    void to_string();
+};
+
 class Account {
 private:
     Customer customer;
     float balance;
     int account_number;
-    Transactions transactions[];
+    Transaction transaction[];
 public:
     Account();
     void create_Account();
