@@ -5,24 +5,27 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include "customer.h"
 #include "transaction.h"
 
 class Account {
-private:
+protected:
     Customer customer;
     float balance;
-    int account_number;
-    Transaction transaction[];
+    unsigned long account_number;
+    std::vector<Transaction*> transaction;
 public:
-    Account();
-    void create_Account();
-    int get_account_number();
+    void create_Account(Customer &, unsigned long );
+    unsigned long get_account_number() const;
     float get_balance();
     Customer get_customer();
     void to_string();
-    void set_customer();
-    void set_balance();
+    void set_customer(Customer &);
+    void set_balance(float &);
+    virtual void deposit() = 0;
+    virtual void withdraw() = 0;
+    virtual void add_interest() = 0;
 };
 
 class Savings_Account : public Account {

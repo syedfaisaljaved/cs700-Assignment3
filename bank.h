@@ -5,10 +5,17 @@
 #pragma once
 
 #include "account.h"
+#include <vector>
 
 class Bank {
 private:
-    Account account[];
+    std::vector<Account*> account;
+    std::string takeStringInput(const std::string& question);
+    int takeIntegerInput(const std::string& question);
+    Customer* getNewCustomerDetails();
+    Account* get_account_number(unsigned long );
+
+
 public:
     void add_accounts();
 
@@ -16,5 +23,5 @@ public:
 
     void make_withdrawal();
 
-    Account get_account();
+    void get_account();
 };

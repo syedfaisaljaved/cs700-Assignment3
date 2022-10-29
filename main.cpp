@@ -1,6 +1,11 @@
 #include <iostream>
+#include "BankApplication.h"
+
+using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    BankApplication bankApplication;
+    bankApplication.start();
+
     return 0;
 }
