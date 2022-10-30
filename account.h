@@ -21,7 +21,7 @@ public:
     unsigned long get_account_number() const;
     double get_balance() const;
     Customer* get_customer();
-    std::string to_string();
+    void to_string();
     void set_customer(Customer &);
     void set_balance(double);
     virtual void deposit(double &, Date &) = 0;

@@ -11,7 +11,8 @@ using namespace std;
 
 string Transaction::to_string() {
     std::ostringstream oss;
-    oss << " amount: $" << getAmount() << " on " << getDate() << " new balance: $" << getBalance();
+    cout << right << setw(10) << this->getTransactionType() << "\t" << this->getDate()
+         << setw(5) << "$ " << left << this->getAmount() << right << setw(5) << "$ " << left << this->getBalance() << endl;
     return oss.str();
 }
 

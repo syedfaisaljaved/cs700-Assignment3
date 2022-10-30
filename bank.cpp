@@ -107,7 +107,15 @@ void Bank::make_withdrawal() {
 }
 
 void Bank::get_account() {
+    auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ");
 
+    while(true){
+        if(accountNumber <= this->accountNumberIndex){
+            break;
+        }
+        cout << "account number doesnt exist" << endl;
+    }
+    account[accountNumber]->to_string();
 }
 
 string Bank::takeOnlyCharInput(const string &question) {

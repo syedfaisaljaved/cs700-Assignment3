@@ -1,5 +1,4 @@
 #include <iostream>
-#include <sstream>
 #include "account.h"
 
 using namespace std;
@@ -16,16 +15,14 @@ Customer *Account::get_customer() {
     return customer;
 }
 
-string Account::to_string() {
-    std::ostringstream oss;
-    oss << "Account: " << this->get_account_number()
-        << "\nOwner: " << this->get_customer()->getName()
-        << "\nType of customer: " << this->get_customer()->getAccountType()
-        << "\nBalance: " << this->get_balance();
-    for(const auto transaction : this->transaction){
-        oss << transaction->to_string() << "\n";
+void Account::to_string() {
+    cout << "Account: " << this->get_account_number() << endl
+        << "Owner: " << this->get_customer()->getName() << endl
+        << "Type of customer: " << this->get_customer()->getAccountType() << endl
+        << "Balance: " << this->get_balance() << endl;
+    for(Transaction* eachTransac : this->transaction){
+        cout << eachTransac->to_string() << endl;
     }
-    return oss.str();
 }
 
 void Account::set_customer(Customer &customer1) {
