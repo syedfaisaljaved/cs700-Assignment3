@@ -15,10 +15,6 @@ protected:
     unsigned long customer_number;
 
 public:
-    const double SAVINGS_INTEREST=0.0;
-    const double CHECKING_INTEREST=0.0;
-    const double CHECK_CHARGE=0.0;
-    const double OVERDRAFT_PENALTY=0.0;
 
     void setName(std::string &);
 
@@ -33,6 +29,10 @@ public:
     int getAge();
 
     virtual std::string getAccountType()=0;
+    virtual double getSavingsInterest()=0;
+    virtual double getCheckingInterest()=0;
+    virtual double getCheckCharge()=0;
+    virtual double getOverDraftPenalty()=0;
 
     void setTelephoneNumber(unsigned long &);
 
@@ -48,6 +48,10 @@ public:
     const double OVERDRAFT_PENALTY = 25.0;      // dollar
 
     std::string getAccountType() override;
+    double getSavingsInterest() override;
+    double getCheckingInterest() override;
+    double getCheckCharge() override;
+    double getOverDraftPenalty() override;
 
 };
 
@@ -59,7 +63,10 @@ public:
     const double OVERDRAFT_PENALTY = 25.0;       // dollar
 
     std::string getAccountType() override;
-
+    double getSavingsInterest() override;
+    double getCheckingInterest() override;
+    double getCheckCharge() override;
+    double getOverDraftPenalty() override;
 };
 
 class Student : public Customer {
@@ -70,5 +77,8 @@ public:
     const double OVERDRAFT_PENALTY = 25.0; 	// dollar
 
     std::string getAccountType() override;
-
+    double getSavingsInterest() override;
+    double getCheckingInterest() override;
+    double getCheckCharge() override;
+    double getOverDraftPenalty() override;
 };

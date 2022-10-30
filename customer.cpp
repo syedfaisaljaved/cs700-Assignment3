@@ -47,6 +47,54 @@ std::string Senior::getAccountType() {
     return "Senior";
 }
 
+double Senior::getSavingsInterest() {
+    return SAVINGS_INTEREST;
+}
+
+double Senior::getCheckingInterest() {
+    return CHECKING_INTEREST;
+}
+
+double Senior::getCheckCharge() {
+    return CHECK_CHARGE;
+}
+
+double Senior::getOverDraftPenalty() {
+    return OVERDRAFT_PENALTY;
+}
+
+double Adult::getSavingsInterest() {
+    return SAVINGS_INTEREST;
+}
+
+double Adult::getCheckingInterest() {
+    return CHECKING_INTEREST;
+}
+
+double Adult::getCheckCharge() {
+    return CHECK_CHARGE;
+}
+
+double Adult::getOverDraftPenalty() {
+    return OVERDRAFT_PENALTY;
+}
+
+double Student::getSavingsInterest() {
+    return SAVINGS_INTEREST;
+}
+
+double Student::getCheckingInterest() {
+    return CHECKING_INTEREST;
+}
+
+double Student::getCheckCharge() {
+    return CHECK_CHARGE;
+}
+
+double Student::getOverDraftPenalty() {
+    return OVERDRAFT_PENALTY;
+}
+
 std::string Student::getAccountType() {
     return "Student";
 }

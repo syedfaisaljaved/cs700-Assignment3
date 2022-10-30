@@ -17,10 +17,10 @@ Customer *Account::get_customer() {
 
 void Account::to_string() {
     cout << "Account: " << this->get_account_number() << endl
-        << "Owner: " << this->get_customer()->getName() << endl
-        << "Type of customer: " << this->get_customer()->getAccountType() << endl
-        << "Balance: " << this->get_balance() << endl;
-    for(Transaction* eachTransac : this->transaction){
+         << "Owner: " << this->get_customer()->getName() << endl
+         << "Type of customer: " << this->get_customer()->getAccountType() << endl
+         << "Balance: " << this->get_balance() << endl;
+    for (Transaction *eachTransac: this->transaction) {
         cout << eachTransac->to_string() << endl;
     }
 }
@@ -46,23 +46,31 @@ Transaction Account::getLastTransaction() {
 void Savings_Account::deposit(double &amount, Date &date) {
     this->set_balance(amount);
     this->transaction.push_back(new Transaction("DEP", amount, this->get_balance(), date));
-    cout << "\tDeposit in " << this->get_account_number() << transaction.back()->to_string() << endl;
+    cout << "\tDeposit in " << this->get_account_number() << " amount: $" << amount << " on " << date
+         << " new balance: $" << this->get_balance() << endl;
 }
 
 void Savings_Account::withdraw(double &amount, Date &date) {
     if (amount > this->get_balance()) {
         /// overdraft penalty
+        double overDraftPenalty = this->get_customer()->getOverDraftPenalty();
+        this->set_balance(-overDraftPenalty);
+        this->transaction.push_back(new Transaction("OVRDFT PENALTY", overDraftPenalty, this->get_balance(), date));
+
+        cout << "Insufficient Balance. You have been charged overdraft penalty." << endl;
         return;
     }
 
     this->add_interest(date);
     this->set_balance(-amount);
     this->transaction.push_back(new Transaction("WD", amount, this->get_balance(), date));
-    cout << "\tWithdraw from " << this->get_account_number() << transaction.back()->to_string() << endl;
+
+    cout << "\tWithdraw from " << this->get_account_number() << " amount: $" << amount << " on " << date
+         << " new balance: $" << this->get_balance() << endl;
 }
 
 void Savings_Account::add_interest(Date &date) {
-    double interest = this->get_balance() * this->get_customer()->SAVINGS_INTEREST *
+    double interest = this->get_balance() * this->get_customer()->getSavingsInterest() *
                       (double) (date - this->getLastTransaction().getDate());
     this->set_balance(interest);
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
@@ -78,18 +86,29 @@ void Checking_Account::deposit(double &amount, Date &date) {
 void Checking_Account::withdraw(double &amount, Date &date) {
     if (amount > this->get_balance()) {
         /// overdraft penalty
+        double overDraftPenalty = this->get_customer()->getOverDraftPenalty();
+        this->set_balance(-overDraftPenalty);
+        this->transaction.push_back(new Transaction("OVRDFT PENALTY", overDraftPenalty, this->get_balance(), date));
+
+        cout << "Insufficient Balance. You have been charged overdraft penalty." << endl;
         return;
     }
 
     this->add_interest(date);
     this->set_balance(-amount);
     this->transaction.push_back(new Transaction("WD", amount, this->get_balance(), date));
-    cout << "\tWithdraw from " << this->get_account_number() << transaction.back()->to_string() << endl;
+
+    double checkingCharge = this->get_customer()->getCheckCharge();
+    this->set_balance(-checkingCharge);
+    this->transaction.push_back(new Transaction("CHKCHG", checkingCharge, this->get_balance(), date));
+
+    cout << "\tWithdraw from " << this->get_account_number() << " amount: $" << amount << " on " << date
+         << " new balance: $" << this->get_balance() << endl;
 }
 
 void Checking_Account::add_interest(Date &date) {
-    double interest = this->get_balance() * this->get_customer()->CHECKING_INTEREST *
-                      (double) (date - this->getLastTransaction().getDate());
+    double dateDiff = (double) (date - this->getLastTransaction().getDate());
+    double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * dateDiff;
     this->set_balance(interest);
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
 }
