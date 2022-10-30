@@ -9,11 +9,15 @@
 
 class Bank {
 private:
-    std::vector<Account*> account;
-    std::string takeStringInput(const std::string& question);
-    int takeIntegerInput(const std::string& question);
+    Account* account[100];
+    std::string takeOnlyCharInput(const std::string& question);
+    template<typename T>
+    T takeStringInput(const std::string& question);
+    template<typename T>
+    T takeNumberInput(const std::string &);
     Customer* getNewCustomerDetails();
-    Account* get_account_number(unsigned long );
+    unsigned long accountNumberIndex = 0;
+    unsigned long customerNumberIndex = 0;
 
 
 public:
@@ -24,4 +28,5 @@ public:
     void make_withdrawal();
 
     void get_account();
+
 };

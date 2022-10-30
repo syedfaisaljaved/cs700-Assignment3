@@ -11,8 +11,8 @@ private:
     std::string name;
     std::string address;
     int age;
-    int telephone_number;
-    int customer_number = 0;
+    unsigned long telephone_number;
+    unsigned long customer_number;
 public:
     void setName(std::string &);
 
@@ -20,9 +20,9 @@ public:
 
     void setAge(int &);
 
-    void setTelephoneNumber(int &);
+    void setTelephoneNumber(unsigned long &);
 
-    void setCustomerNumber();
+    void setCustomerNumber(unsigned long &);
 
 };
 

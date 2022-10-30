@@ -3,3 +3,10 @@
 //
 
 #include "transaction.h"
+#include <utility>
+
+using namespace std;
+
+void Transaction::to_string() {
+
+}

@@ -12,45 +12,38 @@ void Bank::add_accounts() {
     Customer *customer = getNewCustomerDetails();
     cout << "Select:" << endl << "0: Checking" << endl << "1: Savings" << endl << "> ";
 
-    int customerAccountType = takeIntegerInput("");
+    int customerAccountType = takeNumberInput<int>("");
 
-    vector<int> vec;
-
-    unsigned long newAccountNumber = account.size();
-
-    cout << "new acc number" << newAccountNumber << endl;
     switch (customerAccountType) {
         case 0: {
-            Checking_Account checkingAccount;
-            checkingAccount.create_Account(*customer, account.size());
-            account.push_back(&checkingAccount);
+            account[accountNumberIndex] = new Checking_Account();
+            account[accountNumberIndex]->create_Account(*customer, accountNumberIndex);
             break;
         }
         case 1: {
-            Savings_Account savingsAccount;
-            savingsAccount.create_Account(*customer, account.size());
-            account.push_back(&savingsAccount);
+            account[accountNumberIndex] = new Savings_Account();
+            account[accountNumberIndex]->create_Account(*customer, accountNumberIndex);
+
             break;
         }
         default:
             break;
     }
 
-    cout << "Account " << account[account.size()-1]->get_account_number() << " Added" << endl;
-
+    accountNumberIndex++;
 }
 
 Customer *Bank::getNewCustomerDetails() {
-    string customerName = takeStringInput("Enter Customer Name> ");
-    string customerAddress = takeStringInput("Enter Customer Address> ");
-    int customerAge = takeIntegerInput("Enter Customer Age> ");
-    int customerPhoneNumber = takeIntegerInput("Enter Customer Phone Number> ");
+    string customerName = takeOnlyCharInput("Enter Customer Name> ");
+    string customerAddress = takeStringInput<string>("Enter Customer Address> ");
+    int customerAge = takeNumberInput<int>("Enter Customer Age> ");
+    auto customerPhoneNumber = takeNumberInput<unsigned long>("Enter Customer Phone Number> ");
 
 
     Customer *customerBase;
 
     cout << "Select:" << endl << "0: Senior" << endl << "1: Adult" << endl << "2: Student" << endl << "> ";
-    int selectedOption = takeIntegerInput("");
+    int selectedOption = takeNumberInput<int>("");
 
     switch (selectedOption) {
         case 0: {
@@ -59,7 +52,7 @@ Customer *Bank::getNewCustomerDetails() {
             seniorCustomer.setAddress(customerAddress);
             seniorCustomer.setAge(customerAge);
             seniorCustomer.setTelephoneNumber(customerPhoneNumber);
-            seniorCustomer.setCustomerNumber();
+            seniorCustomer.setCustomerNumber(this->customerNumberIndex);
             customerBase = &seniorCustomer;
             break;
         }
@@ -69,7 +62,7 @@ Customer *Bank::getNewCustomerDetails() {
             adultCustomer.setAddress(customerAddress);
             adultCustomer.setAge(customerAge);
             adultCustomer.setTelephoneNumber(customerPhoneNumber);
-            adultCustomer.setCustomerNumber();
+            adultCustomer.setCustomerNumber(this->customerNumberIndex);
             customerBase = &adultCustomer;
             break;
         }
@@ -79,7 +72,7 @@ Customer *Bank::getNewCustomerDetails() {
             studentCustomer.setAddress(customerAddress);
             studentCustomer.setAge(customerAge);
             studentCustomer.setTelephoneNumber(customerPhoneNumber);
-            studentCustomer.setCustomerNumber();
+            studentCustomer.setCustomerNumber(this->customerNumberIndex);
             customerBase = &studentCustomer;
             break;
         }
@@ -87,11 +80,27 @@ Customer *Bank::getNewCustomerDetails() {
             break;
     }
 
+    this->customerNumberIndex++;
+
     return customerBase;
 }
 
 
 void Bank::make_deposit() {
+
+    auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ");
+
+    while(true){
+        if(accountNumber <= this->accountNumberIndex){
+            break;
+        }
+        cout << "account number doesnt exist" << endl;
+    }
+
+    auto amount = takeNumberInput<float>("Enter The Amount> ");
+
+    Date date = takeStringInput<Date>("Enter the date yyyy-mm-dd> ");
+    account[accountNumber]->deposit(amount,date);
 
 }
 
@@ -103,7 +112,7 @@ void Bank::get_account() {
 
 }
 
-string Bank::takeStringInput(const string &question) {
+string Bank::takeOnlyCharInput(const string &question) {
     cout << question;
     string input;
     cin >> input;
@@ -115,12 +124,13 @@ string Bank::takeStringInput(const string &question) {
     } else {
         cout << "invalid input. only numbers letters are allowed" << endl;
     }
-    return takeStringInput(question);
+    return takeOnlyCharInput(question);
 }
 
-int Bank::takeIntegerInput(const string &question) {
+template<typename T>
+T Bank::takeNumberInput(const string &question) {
     cout << question;
-    int input;
+    T input;
     cin >> input;
 
     if (!isdigit(input)) {
@@ -128,9 +138,14 @@ int Bank::takeIntegerInput(const string &question) {
     } else {
         cout << "invalid input. only numbers are allowed" << endl;
     }
-    return takeIntegerInput(question);
+    return takeNumberInput<T>(question);
 }
 
-Account *Bank::get_account_number(unsigned long accountIndex) {
-    return account[accountIndex];
+template<typename T>
+T Bank::takeStringInput(const string &question) {
+    cout << question;
+    T input;
+    cin >> input;
+
+    return input;
 }

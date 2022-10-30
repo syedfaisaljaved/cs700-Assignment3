@@ -8,22 +8,22 @@
 using namespace std;
 
 void Customer::setAddress(string &customerAddress) {
-    address = customerAddress;
+    this->address = customerAddress;
 }
 
 void Customer::setName(string &customerName) {
-    name = customerName;
+    this->name = customerName;
 }
 
-void Customer::setTelephoneNumber(int &customerTelephoneNumber) {
-    telephone_number = customerTelephoneNumber;
+void Customer::setTelephoneNumber(unsigned long &customerTelephoneNumber) {
+    this->telephone_number = customerTelephoneNumber;
 }
 
 void Customer::setAge(int &customerAge) {
-    age = customerAge;
+    this->age = customerAge;
 }
 
-void Customer::setCustomerNumber() {
-    customer_number = customer_number+1;
+void Customer::setCustomerNumber(unsigned long &customerNumber) {
+    this->customer_number = customerNumber;
 }
 
