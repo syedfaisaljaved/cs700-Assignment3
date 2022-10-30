@@ -27,3 +27,26 @@ void Customer::setCustomerNumber(unsigned long &customerNumber) {
     this->customer_number = customerNumber;
 }
 
+std::string Customer::getName() {
+    return this->name;
+}
+
+std::string Customer::getAddress() {
+    return this->address;
+}
+
+int Customer::getAge() {
+    return this->age;
+}
+
+std::string Adult::getAccountType() {
+    return "Adult";
+}
+
+std::string Senior::getAccountType() {
+    return "Senior";
+}
+
+std::string Student::getAccountType() {
+    return "Student";
+}

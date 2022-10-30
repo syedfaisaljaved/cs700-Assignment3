@@ -12,9 +12,14 @@
 class Transaction {
 private:
     std::string transaction_type;
-    float amount_balance;
+    double amount;
+    double balance;
     Date date;
 public:
-    Transaction(std::string transactionType, float amount, const Date& date) : transaction_type(std::move(transactionType)), amount_balance(amount), date(date){}
-    void to_string();
+    Transaction(std::string transactionType, double amount, double balance, const Date& date) : transaction_type(std::move(transactionType)), amount(amount), balance(balance), date(date){}
+    std::string to_string();
+    double getAmount();
+    double getBalance();
+    Date getDate();
+    std::string getTransactionType();
 };

@@ -4,9 +4,30 @@
 
 #include "transaction.h"
 #include <utility>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
-void Transaction::to_string() {
-
+string Transaction::to_string() {
+    std::ostringstream oss;
+    oss << " amount: $" << getAmount() << " on " << getDate() << " new balance: $" << getBalance();
+    return oss.str();
 }
+
+double Transaction::getBalance() {
+    return this->balance;
+}
+
+double Transaction::getAmount() {
+    return amount;
+}
+
+Date Transaction::getDate() {
+    return this->date;
+}
+
+std::string Transaction::getTransactionType() {
+    return this->transaction_type;
+}
+

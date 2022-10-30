@@ -85,7 +85,7 @@ long Date::YmdToJd( const int iYear, const int iMonth, const int iDay )
 
     int a,b;
     int year = iYear, month = iMonth, day = iDay;
-    float year_corr;
+    double year_corr;
 
     if ( year < 0 )
         year++;

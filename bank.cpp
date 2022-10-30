@@ -33,7 +33,7 @@ void Bank::add_accounts() {
     accountNumberIndex++;
 }
 
-Customer *Bank::getNewCustomerDetails() {
+Customer* Bank::getNewCustomerDetails() {
     string customerName = takeOnlyCharInput("Enter Customer Name> ");
     string customerAddress = takeStringInput<string>("Enter Customer Address> ");
     int customerAge = takeNumberInput<int>("Enter Customer Age> ");
@@ -47,38 +47,24 @@ Customer *Bank::getNewCustomerDetails() {
 
     switch (selectedOption) {
         case 0: {
-            Senior seniorCustomer;
-            seniorCustomer.setName(customerName);
-            seniorCustomer.setAddress(customerAddress);
-            seniorCustomer.setAge(customerAge);
-            seniorCustomer.setTelephoneNumber(customerPhoneNumber);
-            seniorCustomer.setCustomerNumber(this->customerNumberIndex);
-            customerBase = &seniorCustomer;
+            customerBase = new Senior();
             break;
         }
         case 1: {
-            Adult adultCustomer;
-            adultCustomer.setName(customerName);
-            adultCustomer.setAddress(customerAddress);
-            adultCustomer.setAge(customerAge);
-            adultCustomer.setTelephoneNumber(customerPhoneNumber);
-            adultCustomer.setCustomerNumber(this->customerNumberIndex);
-            customerBase = &adultCustomer;
+            customerBase = new Adult();
             break;
         }
         case 2: {
-            Student studentCustomer;
-            studentCustomer.setName(customerName);
-            studentCustomer.setAddress(customerAddress);
-            studentCustomer.setAge(customerAge);
-            studentCustomer.setTelephoneNumber(customerPhoneNumber);
-            studentCustomer.setCustomerNumber(this->customerNumberIndex);
-            customerBase = &studentCustomer;
+            customerBase = new Student();
             break;
         }
-        default:
-            break;
     }
+
+    customerBase->setName(customerName);
+    customerBase->setAddress(customerAddress);
+    customerBase->setAge(customerAge);
+    customerBase->setTelephoneNumber(customerPhoneNumber);
+    customerBase->setCustomerNumber(this->customerNumberIndex);
 
     this->customerNumberIndex++;
 
@@ -97,7 +83,7 @@ void Bank::make_deposit() {
         cout << "account number doesnt exist" << endl;
     }
 
-    auto amount = takeNumberInput<float>("Enter The Amount> ");
+    auto amount = takeNumberInput<double>("Enter The Amount> ");
 
     Date date = takeStringInput<Date>("Enter the date yyyy-mm-dd> ");
     account[accountNumber]->deposit(amount,date);
@@ -105,7 +91,19 @@ void Bank::make_deposit() {
 }
 
 void Bank::make_withdrawal() {
+    auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ");
 
+    while(true){
+        if(accountNumber <= this->accountNumberIndex){
+            break;
+        }
+        cout << "account number doesnt exist" << endl;
+    }
+
+    auto amount = takeNumberInput<double>("Enter The Amount> ");
+
+    Date date = takeStringInput<Date>("Enter the date yyyy-mm-dd> ");
+    account[accountNumber]->withdraw(amount,date);
 }
 
 void Bank::get_account() {
