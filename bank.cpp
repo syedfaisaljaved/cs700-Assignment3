@@ -1,11 +1,31 @@
-#include <iostream>
-#include "bank.h"
-#include "Date.h"
-#include <vector>
-#include <algorithm>
+/*****************************
+ * @name Module Name: Banking System Application.
+ * @author Faisal Javed
+ * @date 16th October, 2022
+ * Purpose: CS-700 Assignment 3
+ * Student ID: 200491169
+ ****************************/
 
+#include <iostream> /// library that controls reading from and writing to the standard streams. <br>
+#include "bank.h" /// user-defined header @file bank.h to propagate declarations to code file. <br>
+#include "Date.h" /// user-defined header @file Date.h to propagate declarations to code file. <br>
+#include <algorithm> /// library defines a collection of functions especially designed to be used on ranges of element <br>
+
+/**
+ * 'namespace' is used to organise the names of program entities. <br>
+ * The below statement declares that program will be accessing entities whose name are the part of namespace called std. <br>
+ * */
 using namespace std;
 
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to add account. <br>
+ *         @param [in] void
+ *         @return [out] void
+ *         @post Post Condition - adds an account.
+ * */
 void Bank::add_accounts() {
 
     Customer *customer = getNewCustomerDetails();
@@ -31,6 +51,15 @@ void Bank::add_accounts() {
     accountNumberIndex++;
 }
 
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to get new customer details. <br>
+ *         @param [in] void
+ *         @return [out] Customer*
+ *         @post Post Condition - returns a customer class pointer object
+ * */
 Customer* Bank::getNewCustomerDetails() {
     string customerName = takeStringInput("Enter Customer Name> ", "NAME");
     string customerAddress = takeStringInput("Enter Customer Address> ", "NONE");
@@ -68,7 +97,15 @@ Customer* Bank::getNewCustomerDetails() {
     return customerBase;
 }
 
-
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to deposit amount to account. <br>
+ *         @param [in] void
+ *         @return [out] void
+ *         @post Post Condition - deposit amount to account.
+ * */
 void Bank::make_deposit() {
 
     auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ", "ACCOUNT");
@@ -80,6 +117,15 @@ void Bank::make_deposit() {
 
 }
 
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to withdraw amount from account. <br>
+ *         @param [in] void
+ *         @return [out] void
+ *         @post Post Condition - withdraw amount from account.
+ * */
 void Bank::make_withdrawal() {
     auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ", "ACCOUNT");
 
@@ -89,12 +135,32 @@ void Bank::make_withdrawal() {
     account[accountNumber]->withdraw(amount,date);
 }
 
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to get the account details. <br>
+ *         @param [in] void
+ *         @return [out] void
+ *         @post Post Condition - returns account details
+ * */
 void Bank::get_account() {
     auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ", "ACCOUNT");
 
     account[accountNumber]->to_string();
 }
 
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to take a string input. <br>
+ *         @param [in] question
+ *         @param [in] validationType
+ *         @return [out] string
+ *         @pre Pre Condition - 2 strings are passed
+ *         @post Post Condition - returns a string after taking an input.
+ * */
 string Bank::takeStringInput(const string &question, string validationType) {
     cout << question;
     string input;
@@ -115,6 +181,18 @@ string Bank::takeStringInput(const string &question, string validationType) {
 
 }
 
+
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to return T data type after taking input. <br>
+ *         @param [in] question
+ *         @param [in] validationType
+ *         @return [out] T
+ *         @pre Pre Condition - 2 strings are passed
+ *         @post Post Condition - returns a T data type after taking an input.
+ * */
 template<typename T>
 T Bank::takeNumberInput(const string &question, string validationType) {
     cout << question;
@@ -170,6 +248,17 @@ T Bank::takeNumberInput(const string &question, string validationType) {
     return takeNumberInput<T>(question, validationType);
 }
 
+
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to return a date after taking an input. <br>
+ *         @param [in] question
+ *         @return [out] Date
+ *         @pre Pre Condition - a string is passed
+ *         @post Post Condition - returns a Date object.
+ * */
 Date Bank::takeDateInput(const string &question) {
     cout << question;
     Date input;
@@ -177,6 +266,17 @@ Date Bank::takeDateInput(const string &question) {
     return input;
 }
 
+
+/**
+ * Module Name: Banking System Application. <br>
+ * Author: Faisal Javed <br>
+ * Date of Creation: 16th October, 2022 <br>
+ * Purpose: Method to print the input. <br>
+ *         @param [in] output
+ *         @return [out] void
+ *         @pre Pre Condition - a string is passed
+ *         @post Post Condition - prints to console.
+ * */
 void Bank::printHeader(const string& output) {
     cout << "\n********************************************************\n";
     cout << output << endl;
