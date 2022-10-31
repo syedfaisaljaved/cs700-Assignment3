@@ -42,6 +42,9 @@ void BankApplication::start() {
                 break;
             }
             default:
+                cout << "\n********************************************************\n";
+                cout << "Wrong Selection. Try again from the given options." << endl;
+                cout << "********************************************************\n\n";
                 break;
         }
     }

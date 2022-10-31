@@ -88,7 +88,7 @@ void Checking_Account::withdraw(double &amount, Date &date) {
         /// overdraft penalty
         double overDraftPenalty = this->get_customer()->getOverDraftPenalty();
         this->set_balance(-overDraftPenalty);
-        this->transaction.push_back(new Transaction("OVRDFT PENALTY", overDraftPenalty, this->get_balance(), date));
+        this->transaction.push_back(new Transaction("OVR PNTY", overDraftPenalty, this->get_balance(), date));
 
         cout << "Insufficient Balance. You have been charged overdraft penalty." << endl;
         return;
@@ -100,7 +100,7 @@ void Checking_Account::withdraw(double &amount, Date &date) {
 
     double checkingCharge = this->get_customer()->getCheckCharge();
     this->set_balance(-checkingCharge);
-    this->transaction.push_back(new Transaction("CHKCHG", checkingCharge, this->get_balance(), date));
+    this->transaction.push_back(new Transaction("CHK CHG", checkingCharge, this->get_balance(), date));
 
     cout << "\tWithdraw from " << this->get_account_number() << " amount: $" << amount << " on " << date
          << " new balance: $" << this->get_balance() << endl;

@@ -47,6 +47,10 @@ std::string Senior::getAccountType() {
     return "Senior";
 }
 
+std::string Student::getAccountType() {
+    return "Student";
+}
+
 double Senior::getSavingsInterest() {
     return SAVINGS_INTEREST;
 }
@@ -93,8 +97,4 @@ double Student::getCheckCharge() {
 
 double Student::getOverDraftPenalty() {
     return OVERDRAFT_PENALTY;
-}
-
-std::string Student::getAccountType() {
-    return "Student";
 }
