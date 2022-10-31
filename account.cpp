@@ -25,6 +25,7 @@ using namespace std;
  *         @post Post Condition - returns the account number value.
  * */
 unsigned long Account::get_account_number() const {
+    /// return value
     return account_number;
 }
 
@@ -38,6 +39,7 @@ unsigned long Account::get_account_number() const {
  *         @post Post Condition - returns the balance value.
  * */
 double Account::get_balance() const {
+    /// return value
     return this->balance;
 }
 
@@ -51,6 +53,7 @@ double Account::get_balance() const {
  *         @post Post Condition - returns the customer object.
  * */
 Customer *Account::get_customer() {
+    /// return value
     return this->customer;
 }
 
@@ -64,6 +67,7 @@ Customer *Account::get_customer() {
  *         @post Post Condition - prints variables to the console in a formatted manner.
  * */
 void Account::to_string() {
+    /// print to console
     cout << "Account: " << this->get_account_number() << endl
          << "Owner: " << this->get_customer()->getName() << endl
          << "Type of customer: " << this->get_customer()->getAccountType() << endl
@@ -84,6 +88,7 @@ void Account::to_string() {
  *         @post Post Condition - sets the memory address of a class object to class customer data member.
  * */
 void Account::set_customer(Customer &customer) {
+    /// set value
     this->customer = &customer;
 }
 
@@ -98,6 +103,7 @@ void Account::set_customer(Customer &customer) {
  *         @post Post Condition - sets the balance to the class balance data member
  * */
 void Account::set_balance(double balance) {
+    /// set value
     this->balance += balance;
 }
 
@@ -113,6 +119,7 @@ void Account::set_balance(double balance) {
  *         @post Post Condition - calls a function, sets a value and prints to console
  * */
 void Account::create_Account(Customer &customer, unsigned long &accountNumber) {
+    /// create account
     this->set_customer(customer);
     this->account_number = accountNumber;
     cout << "Account " << this->get_account_number() << " Added" << endl;
@@ -128,6 +135,7 @@ void Account::create_Account(Customer &customer, unsigned long &accountNumber) {
  *         @post Post Condition - returns an object
  * */
 Transaction Account::getLastTransaction() {
+    /// return value
     return *this->transaction[this->transaction.size() - 1];
 }
 
@@ -143,6 +151,7 @@ Transaction Account::getLastTransaction() {
  *         @post Post Condition - sets a value and prints to console
  * */
 void Savings_Account::deposit(double &amount, Date &date) {
+    /// make deposit
     this->set_balance(amount);
     this->transaction.push_back(new Transaction("DEP", amount, this->get_balance(), date));
     cout << "\tDeposit in " << this->get_account_number() << " amount: $" << amount << " on " << date
@@ -161,6 +170,7 @@ void Savings_Account::deposit(double &amount, Date &date) {
  *         @post Post Condition - sets many values and prints to console
  * */
 void Savings_Account::withdraw(double &amount, Date &date) {
+    /// withdraw money
     if (amount > this->get_balance()) {
         /// overdraft penalty
         double overDraftPenalty = this->get_customer()->getOverDraftPenalty();
@@ -190,8 +200,9 @@ void Savings_Account::withdraw(double &amount, Date &date) {
  *         @post Post Condition - calls functions to perform desired operations
  * */
 void Savings_Account::add_interest(Date &date) {
+    /// calc interest
     long dateDiff = date - this->getLastTransaction().getDate();
-    double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * (dateDiff/365.0);
+    double interest = this->get_balance() * this->get_customer()->getSavingsInterest() * (dateDiff/365.0);
     this->set_balance(interest);
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
 }
@@ -208,6 +219,7 @@ void Savings_Account::add_interest(Date &date) {
  *         @post Post Condition - sets a value and prints to console
  * */
 void Checking_Account::deposit(double &amount, Date &date) {
+    /// make deposit
     this->set_balance(amount);
     this->transaction.push_back(new Transaction("DEP", amount, this->get_balance(), date));
     cout << "\tDeposit in " << this->get_account_number() << " amount: $" << amount << " on " << date
@@ -226,6 +238,7 @@ void Checking_Account::deposit(double &amount, Date &date) {
  *         @post Post Condition - sets many values and prints to console
  * */
 void Checking_Account::withdraw(double &amount, Date &date) {
+    /// withdraw money
     if (amount > this->get_balance()) {
         /// overdraft penalty
         double overDraftPenalty = this->get_customer()->getOverDraftPenalty();
@@ -259,6 +272,7 @@ void Checking_Account::withdraw(double &amount, Date &date) {
  *         @post Post Condition - calls functions to perform desired operations
  * */
 void Checking_Account::add_interest(Date &date) {
+    /// calc interest
     long dateDiff = date - this->getLastTransaction().getDate();
     double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * (dateDiff/365.0);
     this->set_balance(interest);
@@ -276,6 +290,7 @@ void Checking_Account::add_interest(Date &date) {
  *         @post Post Condition - prints to console
  * */
 void Account::printHeader(const string& output) {
+    /// print to console
     cout << "\n********************************************************\n";
     cout << output << endl;
     cout << "********************************************************\n\n";

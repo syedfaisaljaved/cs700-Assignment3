@@ -28,17 +28,22 @@ using namespace std;
  * */
 void Bank::add_accounts() {
 
+    /// getting the new customer object with filled details
     Customer *customer = getNewCustomerDetails();
 
+    /// taking input to select type of account
     int customerAccountType = takeNumberInput<int>("Select:\n0: Checking\n1: Savings\n> ", "2");
 
+    /// switch case to create the type of account based on selection
     switch (customerAccountType) {
         case 0: {
+            /// creating a checking account
             account[accountNumberIndex] = new Checking_Account();
             account[accountNumberIndex]->create_Account(*customer, accountNumberIndex);
             break;
         }
         case 1: {
+            /// creating a savings account
             account[accountNumberIndex] = new Savings_Account();
             account[accountNumberIndex]->create_Account(*customer, accountNumberIndex);
 
@@ -47,7 +52,7 @@ void Bank::add_accounts() {
         default:
             break;
     }
-
+    /// incrementing account index
     accountNumberIndex++;
 }
 
@@ -61,39 +66,55 @@ void Bank::add_accounts() {
  *         @post Post Condition - returns a customer class pointer object
  * */
 Customer* Bank::getNewCustomerDetails() {
+    /// taking input for name
     string customerName = takeStringInput("Enter Customer Name> ", "NAME");
+    /// taking input for address
     string customerAddress = takeStringInput("Enter Customer Address> ", "NONE");
+    /// taking input for age
     int customerAge = takeNumberInput<int>("Enter Customer Age> ", "AGE");
+    /// taking input for phone number
     auto customerPhoneNumber = takeNumberInput<unsigned long>("Enter Customer Phone Number> ", "PHONE");
 
-
+    /// creating customer object
     Customer *customerBase;
 
+    /// taking input for account type
     int selectedOption = takeNumberInput<int>("Select:\n0: Senior\n1: Adult\n2: Student\n>" , "3");
 
+    /// switch case for creating account type based on selection
     switch (selectedOption) {
         case 0: {
+            /// creating a account for senior
             customerBase = new Senior();
             break;
         }
         case 1: {
+            /// creating a account for adult
             customerBase = new Adult();
             break;
         }
         case 2: {
+            /// creating a account for student
             customerBase = new Student();
             break;
         }
     }
 
+    /// setting name
     customerBase->setName(customerName);
+    /// setting address
     customerBase->setAddress(customerAddress);
+    /// setting age
     customerBase->setAge(customerAge);
+    /// setting phone
     customerBase->setTelephoneNumber(customerPhoneNumber);
+    /// setting customer number
     customerBase->setCustomerNumber(this->customerNumberIndex);
 
+    /// incrementing customer number index
     this->customerNumberIndex++;
 
+    /// returning the customer object
     return customerBase;
 }
 
@@ -108,11 +129,16 @@ Customer* Bank::getNewCustomerDetails() {
  * */
 void Bank::make_deposit() {
 
+    /// taking input for account number
     auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ", "ACCOUNT");
 
+    /// taking input for amount
     auto amount = takeNumberInput<double>("Enter The Amount> ", "BASIC");
 
+    /// taking input for date
     Date date = takeDateInput("Enter the date yyyy-mm-dd> ");
+
+    /// depositing money to account
     account[accountNumber]->deposit(amount,date);
 
 }
@@ -127,11 +153,17 @@ void Bank::make_deposit() {
  *         @post Post Condition - withdraw amount from account.
  * */
 void Bank::make_withdrawal() {
+
+    /// taking input for account number
     auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ", "ACCOUNT");
 
+    /// taking input for amount
     auto amount = takeNumberInput<double>("Enter The Amount> ", "BASIC");
 
+    /// taking input for date
     Date date = takeDateInput("Enter the date yyyy-mm-dd> ");
+
+    /// depositing money to account
     account[accountNumber]->withdraw(amount,date);
 }
 
@@ -145,8 +177,11 @@ void Bank::make_withdrawal() {
  *         @post Post Condition - returns account details
  * */
 void Bank::get_account() {
+
+    /// taking input for account number
     auto accountNumber = takeNumberInput<unsigned long>("Enter Account Number> ", "ACCOUNT");
 
+    /// printing account details
     account[accountNumber]->to_string();
 }
 
@@ -162,20 +197,27 @@ void Bank::get_account() {
  *         @post Post Condition - returns a string after taking an input.
  * */
 string Bank::takeStringInput(const string &question, string validationType) {
+
+    /// taking input
     cout << question;
     string input;
     cin >> input;
 
+    /// if validation is for name then accept only letters
     if(validationType == "NAME"){
         if (none_of(input.begin(), input.end(), [](const char &c) {
             return !(std::isalpha(c));
         })) {
+            /// return input
             return input;
         } else {
+            /// show error is symbols or digits are entered
             printHeader("Invalid input. It should all be characters");
+            /// take input again
             return takeStringInput(question, validationType);
         }
     } else {
+        /// return input
         return input;
     }
 
@@ -195,11 +237,14 @@ string Bank::takeStringInput(const string &question, string validationType) {
  * */
 template<typename T>
 T Bank::takeNumberInput(const string &question, string validationType) {
+    /// taking input
     cout << question;
     T input;
     cin >> input;
 
+    /// if no char is entered it will pass
     if (cin.good()) {
+        /// validate phone
         if(validationType == "PHONE"){
             if(to_string(input).length() == 10){
                 return input;
@@ -207,6 +252,7 @@ T Bank::takeNumberInput(const string &question, string validationType) {
                 printHeader("Invalid phone number. Please enter 10 digit phone number.");
             }
         }
+        /// validate phone
         else if(validationType == "AGE"){
             if(input >= 18){
                 return input;
@@ -214,21 +260,27 @@ T Bank::takeNumberInput(const string &question, string validationType) {
                 printHeader("You should be min. 18 years of age before opening an account.");
                 return takeNumberInput<T>(question, validationType);
             }
-        } else if(validationType == "2"){
+        }
+        /// validate 2 options
+        else if(validationType == "2"){
             if(input < 2 && input > -1){
                 return input;
             } else {
                 printHeader("Wrong Selection. Try again from the given options.");
                 return takeNumberInput<T>(question, validationType);
             }
-        } else if(validationType == "3"){
+        }
+        /// validate 3 options
+        else if(validationType == "3"){
             if(input < 3 && input > -1){
                 return input;
             } else {
                 printHeader("Wrong Selection. Try again from the given options.");
                 return takeNumberInput<T>(question, validationType);
             }
-        } else if(validationType == "ACCOUNT"){
+        }
+        /// validate account number
+        else if(validationType == "ACCOUNT"){
             if(input < this->accountNumberIndex){
                 return input;
             } else {
@@ -237,14 +289,19 @@ T Bank::takeNumberInput(const string &question, string validationType) {
             }
         }
         else {
+            /// return input
             return input;
         }
     } else {
+        /// print header with appropiate text
         printHeader("Invalid input. Only numbers are allowed.");
     }
 
+    /// clear if error occurs
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    /// recursive call
     return takeNumberInput<T>(question, validationType);
 }
 
