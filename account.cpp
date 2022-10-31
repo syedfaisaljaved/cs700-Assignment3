@@ -57,7 +57,7 @@ void Savings_Account::withdraw(double &amount, Date &date) {
         this->set_balance(-overDraftPenalty);
         this->transaction.push_back(new Transaction("OVRDFT PENALTY", overDraftPenalty, this->get_balance(), date));
 
-        cout << "Insufficient Balance. You have been charged overdraft penalty." << endl;
+        printHeader("Insufficient Balance. You have been charged overdraft penalty.");
         return;
     }
 
@@ -90,7 +90,7 @@ void Checking_Account::withdraw(double &amount, Date &date) {
         this->set_balance(-overDraftPenalty);
         this->transaction.push_back(new Transaction("OVR PNTY", overDraftPenalty, this->get_balance(), date));
 
-        cout << "Insufficient Balance. You have been charged overdraft penalty." << endl;
+        printHeader("Insufficient Balance. You have been charged overdraft penalty.");
         return;
     }
 
@@ -111,4 +111,10 @@ void Checking_Account::add_interest(Date &date) {
     double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * (dateDiff/365.0);
     this->set_balance(interest);
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
+}
+
+void Account::printHeader(const string& output) {
+    cout << "\n********************************************************\n";
+    cout << output << endl;
+    cout << "********************************************************\n\n";
 }

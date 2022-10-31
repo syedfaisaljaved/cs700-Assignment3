@@ -27,6 +27,8 @@ public:
     virtual void deposit(double &, Date &) = 0;
     virtual void withdraw(double &, Date &) = 0;
     virtual void add_interest(Date &) = 0;
+    void printHeader(const std::string&);
+
 };
 
 class Savings_Account : public Account {

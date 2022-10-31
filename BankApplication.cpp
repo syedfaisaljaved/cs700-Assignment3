@@ -1,17 +1,11 @@
-//
-// Created by Faisal Javed on 22/10/22.
-//
 
 #include "BankApplication.h"
 #include <iostream>
-#include <algorithm>
-#include "customer.h"
-#include "account.h"
 #include "bank.h"
 
 using namespace std;
 
-void BankApplication::start() {
+void BankApplication::startBankApplication() {
     bool exitProgram = false;
     Bank bank;
     while (!exitProgram) {
