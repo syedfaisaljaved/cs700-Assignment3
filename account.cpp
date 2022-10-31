@@ -70,8 +70,8 @@ void Savings_Account::withdraw(double &amount, Date &date) {
 }
 
 void Savings_Account::add_interest(Date &date) {
-    double interest = this->get_balance() * this->get_customer()->getSavingsInterest() *
-                      (double) (date - this->getLastTransaction().getDate());
+    long dateDiff = date - this->getLastTransaction().getDate();
+    double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * (dateDiff/365.0);
     this->set_balance(interest);
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
 }
@@ -107,8 +107,8 @@ void Checking_Account::withdraw(double &amount, Date &date) {
 }
 
 void Checking_Account::add_interest(Date &date) {
-    double dateDiff = (double) (date - this->getLastTransaction().getDate());
-    double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * dateDiff;
+    long dateDiff = date - this->getLastTransaction().getDate();
+    double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * (dateDiff/365.0);
     this->set_balance(interest);
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
 }
