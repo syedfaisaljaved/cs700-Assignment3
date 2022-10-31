@@ -73,6 +73,7 @@ void Account::to_string() {
          << "Type of customer: " << this->get_customer()->getAccountType() << endl
          << "Balance: " << this->get_balance() << endl;
     for (Transaction *eachTransac: this->transaction) {
+        /// print transactions
         cout << eachTransac->to_string() << endl;
     }
 }
@@ -153,6 +154,7 @@ Transaction Account::getLastTransaction() {
 void Savings_Account::deposit(double &amount, Date &date) {
     /// make deposit
     this->set_balance(amount);
+    /// add deposit transction
     this->transaction.push_back(new Transaction("DEP", amount, this->get_balance(), date));
     cout << "\tDeposit in " << this->get_account_number() << " amount: $" << amount << " on " << date
          << " new balance: $" << this->get_balance() << endl;
@@ -175,6 +177,7 @@ void Savings_Account::withdraw(double &amount, Date &date) {
         /// overdraft penalty
         double overDraftPenalty = this->get_customer()->getOverDraftPenalty();
         this->set_balance(-overDraftPenalty);
+        /// add overdraft penalty transction
         this->transaction.push_back(new Transaction("OVRDFT PENALTY", overDraftPenalty, this->get_balance(), date));
 
         printHeader("Insufficient Balance. You have been charged overdraft penalty.");
@@ -183,6 +186,7 @@ void Savings_Account::withdraw(double &amount, Date &date) {
 
     this->add_interest(date);
     this->set_balance(-amount);
+    /// add withdraw transction
     this->transaction.push_back(new Transaction("WD", amount, this->get_balance(), date));
 
     cout << "\tWithdraw from " << this->get_account_number() << " amount: $" << amount << " on " << date
@@ -204,6 +208,7 @@ void Savings_Account::add_interest(Date &date) {
     long dateDiff = date - this->getLastTransaction().getDate();
     double interest = this->get_balance() * this->get_customer()->getSavingsInterest() * (dateDiff/365.0);
     this->set_balance(interest);
+    /// add interest transction
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
 }
 
@@ -221,6 +226,7 @@ void Savings_Account::add_interest(Date &date) {
 void Checking_Account::deposit(double &amount, Date &date) {
     /// make deposit
     this->set_balance(amount);
+    /// add deposit transction
     this->transaction.push_back(new Transaction("DEP", amount, this->get_balance(), date));
     cout << "\tDeposit in " << this->get_account_number() << " amount: $" << amount << " on " << date
          << " new balance: $" << this->get_balance() << endl;
@@ -255,6 +261,7 @@ void Checking_Account::withdraw(double &amount, Date &date) {
 
     double checkingCharge = this->get_customer()->getCheckCharge();
     this->set_balance(-checkingCharge);
+    /// add check charge transction
     this->transaction.push_back(new Transaction("CHK CHG", checkingCharge, this->get_balance(), date));
 
     cout << "\tWithdraw from " << this->get_account_number() << " amount: $" << amount << " on " << date
@@ -276,6 +283,7 @@ void Checking_Account::add_interest(Date &date) {
     long dateDiff = date - this->getLastTransaction().getDate();
     double interest = this->get_balance() * this->get_customer()->getCheckingInterest() * (dateDiff/365.0);
     this->set_balance(interest);
+    /// add interest transction
     this->transaction.push_back(new Transaction("INT CR", interest, this->get_balance(), date));
 }
 
