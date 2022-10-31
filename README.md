@@ -29,8 +29,8 @@
 #### Running this program will allow you to add accounts, make deposit, withdraw money, get interest and check all the transactions with your details.
 ### Output - 
 1. Console output
-    <br><br><img src="Screenshot 2022-10-30 at 11.22.30 PM" height="500">
-    <br><br><img src="Screenshot 2022-10-30 at 11.22.41 PM" height="500">
-    <br><br><img src="Screenshot 2022-10-30 at 11.22.50 PM" height="500">
-    <br><br><img src="Screenshot 2022-10-30 at 11.23.01 PM" height="500">
-    <br><br><img src="Screenshot 2022-10-30 at 11.23.08 PM" height="500">
+    <br><br><img src="1" height="500">
+    <br><br><img src="2" height="500">
+    <br><br><img src="3" height="500">
+    <br><br><img src="4" height="500">
+    <br><br><img src="5" height="500">
